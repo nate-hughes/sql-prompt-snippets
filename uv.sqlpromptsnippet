@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>uv</Title>
+      <Shortcut>uv</Shortcut>
+      <Description>User Validation block</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @l_userid INT;
+
+SET @l_userid = dbo.FN_CDO_GET_USER_FROM_GUID(@guid);
+
+IF @l_userid = -1
+BEGIN
+	RAISERROR(70005,16,1,@l_this_proc);
+	RETURN -1;
+END;
+$CURSOR$]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

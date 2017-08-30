@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>xml</Title>
+      <Shortcut>xml</Shortcut>
+      <Description>XML block</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @l_idoc INT
+		,@l_path VARCHAR(100);
+
+-- prepare XML doc
+EXEC sp_xml_preparedocument @l_idoc OUTPUT, @xml;
+
+-- XML node
+SET @l_path = '/Root/Node';
+
+SELECT	@l_variable = SomeColumn
+FROM	OPENXML (@l_idoc, @l_path, 1)
+		WITH (
+			SomeColumn VARCHAR(50) './@SomeColumn'
+		) x;
+
+-- remove XML doc
+EXEC sp_xml_removedocument @l_idoc;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

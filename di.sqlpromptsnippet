@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>di</Title>
+      <Shortcut>di</Shortcut>
+      <Description>DROP INDEX</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>table_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>index_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[IF EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID(N'$table_name$') AND name = N'$index_name$')
+	DROP INDEX $index_name$ ON $table_name$;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

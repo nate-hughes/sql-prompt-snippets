@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>csl</Title>
+      <Shortcut>csl</Shortcut>
+      <Description>Comma Seperated List (STUFF)</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>table_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>column_alias</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT	STUFF((
+	SELECT	',' + tbl.TargetCol
+	FROM	$table_name$ tbl
+	WHERE	src.SomeId = tbl.SomeId
+	FOR XML PATH(''),TYPE).value('.','VARCHAR(MAX)'),1,1,'') AS $column_alias$
+FROM	$table_name$ src
+
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

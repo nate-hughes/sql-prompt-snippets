@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>dt</Title>
+      <Shortcut>dt</Shortcut>
+      <Description>DROP TABLE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>table_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[IF OBJECT_ID('dbo.$table_name$','U') IS NOT NULL
+	DROP TABLE dbo.$table_name$;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

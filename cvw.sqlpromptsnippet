@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cvw</Title>
+      <Shortcut>cvw</Shortcut>
+      <Description>CREATE VIEW</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>view_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>table_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[USE $DBNAME$;
+GO
+
+IF OBJECT_ID('dbo.$view_name$','V') IS NOT NULL
+	DROP VIEW dbo.$view_name$;
+GO
+
+CREATE VIEW dbo.$view_name$
+AS
+/*******************************************************************************
+DESCRIPTION:
+	
+
+USAGE:
+	SELECT	*
+	FROM	dbo.$view_name$;
+
+
+HISTORY:
+	$DATE(MMddyyyy)$ - neh - view created
+	
+***************************************************************************************/
+
+SELECT	*
+FROM	$table_name$
+
+GO
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

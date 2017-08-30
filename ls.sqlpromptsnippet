@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ls</Title>
+      <Shortcut>ls</Shortcut>
+      <Description>DBCC SQLPERF for LOGSPACE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DBCC SQLPERF(LOGSPACE);
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

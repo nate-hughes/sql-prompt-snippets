@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>dp</Title>
+      <Shortcut>dp</Shortcut>
+      <Description>DROP PROCEDURE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>sp_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[IF OBJECT_ID('dbo.$sp_name$','P') IS NOT NULL
+	DROP PROC dbo.$sp_name$;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

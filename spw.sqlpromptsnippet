@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>spw</Title>
+      <Shortcut>spw</Shortcut>
+      <Description>EXECUTE sp_whoisactive</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>spid</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[-- EXEC sp_who2 active;
+-- DBCC INPUTBUFFER ($spid$)
+-- EXEC sp_lock $spid$
+-- KILL $spid$ WITH STATUSONLY
+-- dbcc opentran
+
+EXEC dbo.sp_WhoIsActive
+	--Information about all of the available input parameters and all of the output columns
+	@help = 0
+
+    ,@filter_type = 'session' --Valid filter types are: session, program, database, login, and host
+	,@filter = '' --Set either filter to '' to disable
+	,@not_filter_type = 'session'
+	,@not_filter = ''
+	--Session is a session ID, and either 0 or '' can be used to indicate "all" sessions
+	--All other filter types support % or _ as wildcards
+
+	--Controls how sleeping SPIDs are handled, based on the idea of levels of interest
+	,@show_sleeping_spids = 1
+	--0 does not pull any sleeping SPIDs
+	--1 pulls only those sleeping SPIDs that also have an open transaction (default)
+	--2 pulls all sleeping SPIDs
+
+	--Get associated query plans for running tasks, if available
+	,@get_plans = 0
+	--1 gets the plan for the currently running statement
+	--2 gets the entire plan for all queries in the currently running batch
+	
+	--Toggle output of sql_text column
+	,@get_full_inner_text = 0
+	--0 gets only the actual statement that is currently running in the batch or procedure (default)
+	--1 gets the full stored procedure or running batch, when available
+
+	--Get the associated outer ad hoc query or stored procedure call, if available
+	,@get_outer_command = 0
+
+	--Enables pulling transaction log write info and transaction duration
+	,@get_transaction_info = 0
+
+	--Get information on active tasks, based on three interest levels
+	,@get_task_info = 1
+	--0 does not pull any task-related information
+	--1 is a lightweight mode that pulls the top non-CXPACKET wait, giving preference to blockers (default)
+	--2 pulls all available task-based metrics, including: number of active tasks, current wait stats, physical I/O, context switches, and blocker information
+
+	--Gets associated locks for each request, aggregated in an XML format
+	,@get_locks = 0
+
+	--Walk the blocking chain and count the number of total SPIDs blocked all the way down by a given session
+	,@find_block_leaders = 0
+	
+	--Get average time for past runs of an active query (based on the combination of plan handle, sql handle, and offset)
+	,@get_avg_time = 0
+	
+	--Cause Who Is Active to execute, wait a specified amount of time (in seconds), then execute again.
+	--All of the numeric values that changed during that period will be compared.
+	,@delta_interval = 0
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

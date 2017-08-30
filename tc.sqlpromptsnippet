@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>tc</Title>
+      <Shortcut>tc</Shortcut>
+      <Description>TRY ... CATCH block</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[BEGIN TRY
+	$SELECTEDTEXT$
+END TRY
+
+BEGIN CATCH
+		DECLARE @ErrNum INT = ERROR_NUMBER()
+				,@ErrPrc VARCHAR(255) = ERROR_PROCEDURE()
+				,@ErrLine INT = ERROR_LINE()
+				,@ErrMsgInternal VARCHAR(255) = ERROR_MESSAGE()
+				,@ErrMsg VARCHAR(255)  
+				,@ErrRangeBegin INT = rp_prod.dbo.fn_GetSqlNumber('BEGIN')
+				,@ErrRangeEnd INT = rp_prod.dbo.fn_GetSqlNumber('END');
+		SET @ErrMsg = rp_prod.dbo.fn_CreateErrorMessage(@ErrNum, @ErrPrc, @ErrLine, @ErrMsgInternal);
+		SET @ErrNum = rp_prod.dbo.fn_GetErrorNumber(@ErrNum);         
+    
+		IF @@TRANCOUNT > 0
+			  ROLLBACK TRANSACTION;
+	    
+		IF @ErrNum BETWEEN @ErrRangeBegin AND @ErrRangeEnd
+		BEGIN
+			RAISERROR( @ErrMsg, 15, 1); 
+		END;
+		ELSE
+		BEGIN
+			RAISERROR( @ErrMsgInternal, 15, 1);
+		END;
+END CATCH
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

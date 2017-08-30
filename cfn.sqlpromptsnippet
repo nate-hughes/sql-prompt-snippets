@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cfn</Title>
+      <Shortcut>cfn</Shortcut>
+      <Description>CREATE (scalar/inline) FUNCTION</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>fn_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[USE $DBNAME$;
+GO
+
+IF OBJECT_ID('dbo.$fn_name$','FN') IS NOT NULL
+OR OBJECT_ID('dbo.$fn_name$','IF') IS NOT NULL
+	DROP FUNCTION dbo.$fn_name$;
+GO
+
+CREATE FUNCTION dbo.$fn_name$ (
+	
+)
+RETURNS 
+AS
+/*******************************************************************************
+DESCRIPTION:
+	
+
+USAGE:
+	SELECT dbo.$fn_name$();
+
+
+HISTORY:
+	$DATE(MMddyyyy)$ - neh - fn created
+	
+***************************************************************************************/
+BEGIN
+	
+
+	RETURN;
+END;
+GO
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

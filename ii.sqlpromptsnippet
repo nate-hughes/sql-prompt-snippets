@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ii</Title>
+      <Shortcut>ii</Shortcut>
+      <Description>INSERT INTO</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[INSERT INTO $CURSOR$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

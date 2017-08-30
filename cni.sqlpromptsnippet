@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>cni</Title>
+      <Shortcut>cni</Shortcut>
+      <Description>CREATE NONCLUSTERED INDEX</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>index_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>column_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>filegroup</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>table_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[CREATE NONCLUSTERED INDEX $index_name$ ON $table_name$
+(
+	$column_name$
+)
+--INCLUDE ()
+WITH (
+	FILLFACTOR=100
+	--,DROP_EXISTING=ON --named, preexisting index is dropped and rebuilt
+	--,DATA_COMPRESSION=ROW
+	--,DATA_COMPRESSION=PAGE
+	--,SORT_IN_TEMPDB=ON
+) ON [$filegroup$];
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

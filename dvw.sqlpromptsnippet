@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>dvw</Title>
+      <Shortcut>dvw</Shortcut>
+      <Description>Base DV workflow lookup</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>dealid</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[SELECT	*
+FROM	dbo.T_DEAL_VIEW_WORK_UNIT wu
+		INNER JOIN dbo.T_WORKFLOW wf ON	wf.WorkflowId = wu.WorkflowId
+WHERE	wf.WorkflowStatusId = 7 -- published
+AND		wu.DealId = '$dealid$'
+ORDER BY wu.WorkUnitId DESC;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

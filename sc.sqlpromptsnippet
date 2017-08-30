@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sc</Title>
+      <Shortcut>sc</Shortcut>
+      <Description>SYSCOMMENTS lookup</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SELECT  OBJECT_NAME(m.object_id) AS ObjectName
+		,o.type AS ObjectType
+		--,m.definition
+FROM    sys.sql_modules m
+		INNER JOIN sys.objects o ON o.object_id = m.object_id
+WHERE   m.definition LIKE '%$CURSOR$%'
+ORDER BY o.type
+		,ObjectName;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

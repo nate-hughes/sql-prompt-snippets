@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ds</Title>
+      <Shortcut>ds</Shortcut>
+      <Description>DROP SYNONYM</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>synonym_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[IF OBJECT_ID('dbo.$synonym_name$','SN') IS NOT NULL
+	DROP SYNONYM dbo.$synonym_name$;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

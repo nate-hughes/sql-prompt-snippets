@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>defrg</Title>
+      <Shortcut>defrg</Shortcut>
+      <Description>Update Table Stats &amp; Defrag Indexes</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>table_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[DECLARE @TblId INT = OBJECT_ID('$table_name$');
+
+UPDATE STATISTICS dbo.$table_name$;
+
+EXEC rp_util.dbo.p_admin_reindex_rp3
+    @DBName = N'$DBNAME$'
+   ,@TblId = @TblId;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

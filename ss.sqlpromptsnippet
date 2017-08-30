@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ss</Title>
+      <Shortcut>ss</Shortcut>
+      <Description>Set STATISTICS IO and STATISTICS TIME on and off</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[SET STATISTICS IO, TIME ON;
+GO
+
+$SELECTEDTEXT$
+
+SET STATISTICS IO, TIME OFF;
+GO
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

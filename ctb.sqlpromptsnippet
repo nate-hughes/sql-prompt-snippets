@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ctb</Title>
+      <Shortcut>ctb</Shortcut>
+      <Description>CREATE TABLE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>table_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+        <Literal>
+          <ID>column_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[CREATE TABLE dbo.$table_name$ (
+	$column_name$
+	,CONSTRAINT PK_$table_name$ PRIMARY KEY CLUSTERED ($column_name$) WITH FILLFACTOR=100 ON [PRIMARY]
+);
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

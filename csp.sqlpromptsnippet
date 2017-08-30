@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>csp</Title>
+      <Shortcut>csp</Shortcut>
+      <Description>CREATE STORED PROCEDURE</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>sp_name</ID>
+          <ToolTip />
+          <Default />
+        </Literal>
+      </Declarations>
+      <Code Language="sql"><![CDATA[USE $DBNAME$;
+GO
+
+IF OBJECT_ID('dbo.$sp_name$','P') IS NOT NULL
+	DROP PROC dbo.$sp_name$;
+GO
+
+CREATE PROC dbo.$sp_name$
+	@GUID VARCHAR(100)
+AS
+/************************************************************************************************
+DESCRIPTION:
+	
+
+USAGE:
+	DECLARE @guid VARCHAR(100);
+	SELECT @guid = externalkey from dbo.DNS_Users WHERE UserName = 'rlyddy';
+	
+	EXEC dbo.$sp_name$
+		@guid = @guid;
+		
+
+HISTORY:
+	$DATE(MMddyyyy)$ - neh - sp created
+
+************************************************************************************************/
+SET NOCOUNT ON;
+
+DECLARE @l_this_proc VARCHAR(100) = OBJECT_NAME(@@PROCID)
+		,@l_userid INT;
+
+SET @l_userid = dbo.FN_CDO_GET_USER_FROM_GUID(@guid);
+
+-- user validation
+IF @l_userid = -1
+BEGIN
+	RAISERROR(70005,16,1,@l_this_proc);
+	RETURN -1;
+END;
+
+
+GO
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

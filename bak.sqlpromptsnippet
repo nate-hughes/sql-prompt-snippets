@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>bak</Title>
+      <Shortcut>bak</Shortcut>
+      <Description>Ola Hallengren Backup</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @path NVARCHAR(4000);
+
+EXEC master.dbo.xp_instance_regread 
+        N'HKEY_LOCAL_MACHINE', 
+        N'Software\Microsoft\MSSQLServer\MSSQLServer',N'BackupDirectory', 
+        @path OUTPUT,  
+        'no_output';
+
+SELECT @path;$CURSOR$
+
+-- https://ola.hallengren.com/sql-server-backup.html
+EXECUTE NutsAndBolts.[dbo].[DatabaseBackup]
+	--The keywords SYSTEM_DATABASES, USER_DATABASES, ALL_DATABASES, and AVAILABILITY_GROUP_DATABASES are supported. The hyphen character (-) is used to exclude databases
+	--and the percent character (%) is used for wildcard selection. All of these operations can be combined by using the comma (,).
+	@Databases = 'USER_DATABASES'
+	,@Directory = @path
+	,@BackupType = 'FULL' --FULL, DIFF or LOG
+	,@Verify = 'Y' -- Verify the backup.
+	--,@CleanupTime = 22 -- Specify the time, in hours, after which the backup files are deleted. If no time is specified, then no backup files are deleted.
+	--,@CleanupMode = 'AFTER_BACKUP' -- Specify if old backup files should be deleted before or after the backup has been performed.
+	--,@Compress = 'Y' -- Compress the backup. If no value is specified, then the backup compression default in sys.configurations is used.
+	--,@CopyOnly = 'Y' -- Perform a copy-only backup.
+	--,@ChangeBackupType = 'Y' -- Change the backup type if a differential or transaction-log backup cannot be performed.
+	,@CheckSum = 'Y' -- Enable backup checksums.
+	,@LogToTable = 'Y' -- Log commands to the table dbo.CommandLog.
+	,@Execute = 'Y'; -- Execute commands. By default, the commands are executed normally. If this parameter is set to N, then the commands are printed only.
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
