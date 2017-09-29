@@ -35,6 +35,7 @@ dtra	DISABLE all TRIGGERs on table
 dv	DROP VIEW
 etr	ENABLE TRIGGER
 etra	ENABLE all TRIGGERs on table
+fkt	Foreign Keys for Table
 foj	FULL OUTER JOIN
 gb	GROUP BY 
 header	Template header for db objects
