@@ -4,27 +4,46 @@
     <Header>
       <Title>defrg</Title>
       <Shortcut>defrg</Shortcut>
-      <Description>Update Table Stats &amp; Defrag Indexes</Description>
+      <Description>Ola Hallengren Index Maintenance</Description>
       <Author />
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
     </Header>
     <Snippet>
-      <Declarations>
-        <Literal>
-          <ID>table_name</ID>
-          <ToolTip />
-          <Default />
-        </Literal>
-      </Declarations>
-      <Code Language="sql"><![CDATA[DECLARE @TblId INT = OBJECT_ID('$table_name$');
-
-UPDATE STATISTICS dbo.$table_name$;
-
-EXEC rp_util.dbo.p_admin_reindex_rp3
-    @DBName = N'$DBNAME$'
-   ,@TblId = @TblId;
+      <Declarations />
+      <Code Language="sql"><![CDATA[EXECUTE NutsAndBolts.dbo.IndexOptimize
+	--The keywords SYSTEM_DATABASES, USER_DATABASES, ALL_DATABASES, and AVAILABILITY_GROUP_DATABASES are supported. The hyphen character (-) is used to exclude databases
+	--and the percent character (%) is used for wildcard selection. All of these operations can be combined by using the comma (,).
+	@Databases = N'$SELECTIONSTART$Db1$SELECTIONEND$' -- All indexes in the database Db1
+	--See documentation for Fragmentation operations: https://ola.hallengren.com/sql-server-index-and-statistics-maintenance.html
+    --,@FragmentationLow = N'' -- Default: Do not perform index maintenance.
+    --,@FragmentationMedium = N'' -- Default: Reorganize index. Rebuild index online if reorganizing is not supported on an index. Rebuild index offline if reorganizing and online rebuilding are not supported on an index.
+    --,@FragmentationHigh = N'' -- Default: Rebuild index online. Rebuild index offline if online rebuilding is not supported on an index.
+    --,@FragmentationLevel1 = 0 -- Set the lower limit, as a percentage, for medium fragmentation. The default is 5 percent.
+    --,@FragmentationLevel2 = 0 -- Set the lower limit, as a percentage, for high fragmentation. The default is 30 percent.
+    --,@PageCountLevel = 0 -- Set a size, in pages; indexes with fewer pages are skipped for index maintenance. The default is 1000 pages.
+    --,@SortInTempdb = N'' -- Use tempdb for sort operations when rebuilding indexes. The default is to not use tempdb.
+    --,@MaxDOP = 0 -- Specify the number of CPUs to use when rebuilding indexes. If this number is not specified, the global maximum degree of parallelism is used.
+    --,@FillFactor = 0 -- Indicate, as a percentage, how full the pages should be made when rebuilding indexes. If a percentage is not specified, the fill factor in sys.indexes is used.
+    --,@PadIndex = N'' -- Apply the percentage of free space that the fill factor specifies to the intermediate-level pages of the index. The default is to fill to near capacity.
+    --,@LOBCompaction = N'' -- Compact pages that contain large object (LOB) columns, when reorganizing indexes. The default is to compact pages
+    --,@UpdateStatistics = N'' -- ALL, INDEX, COLUMN or NULL. The default is to not perform statistics maintenance (NULL).
+    --,@OnlyModifiedStatistics = N'' -- Update statistics only if any rows have been modified since the most recent statistics update.
+    --,@StatisticsSample = 0 -- Indicate, as a percentage, how much of a table is gathered when updating statistics. A value of 100 is equivalent to a full scan. If no value is specified, then SQL Server automatically computes the required sample.
+    --,@StatisticsResample = N'' -- Update statistics with the most recent sample. The default is to let SQL Server automatically compute the required sample.
+    --,@PartitionLevel = N'' -- Maintain partitioned indexes on the partition level. If this parameter is set to Y, the fragmentation level and page count is checked for each partition. The default is to maintain partitioned indexes on the partition level.
+    --,@MSShippedObjects = N'' -- Maintain indexes and statistics on objects that are created by internal SQL Server components. The default is to not maintain indexes and statistics on objects that are created by internal SQL Server components
+	--Select indexes. If this parameter is not specified, all indexes are selected. The ALL_INDEXES keyword is supported. The hyphen character (-) is used to exclude indexes,
+	--and the percent character (%) is used for wildcard selection. All these operations can be combined by using the comma (,).
+    ,@Indexes = N'Db1.Schema1.Tbl1' -- All indexes on the object Schema1.Tbl1 in the database Db1
+    --,@TimeLimit = 0 -- Set the time, in seconds, after which no commands are executed. By default, the time is not limited.
+    --,@Delay = 0 -- Set the delay, in seconds, between index commands. By default, there is no delay.
+    --,@WaitAtLowPriorityMaxDuration = 0 -- The time, in minutes that an online index rebuild operation will wait for low priority locks.
+    --,@WaitAtLowPriorityAbortAfterWait = N'' -- The action that will be performed after an online index rebuild operation has been waiting for low priority locks.
+    --,@LockTimeout = 0 -- Set the time, in seconds, that a command waits for a lock to be released. By default, the time is not limited.
+    ,@LogToTable = N'Y' -- Log commands to the table dbo.CommandLog. The default is to not log commands to the table.
+    ,@Execute = N'Y'; -- Execute commands. By default, the commands are executed normally. If this parameter is set to N, then the commands are printed only.
 ]]></Code>
     </Snippet>
   </CodeSnippet>

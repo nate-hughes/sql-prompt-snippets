@@ -22,7 +22,7 @@ cvw	CREATE VIEW
 cw	CASE WHEN
 dc	DROP COLUMN
 dcst	DROP CONSTRAINT
-defrg	Update Stats & Defrag Indexes
+defrg	Ola Hallengren Index Maintenance
 df	DELETE FROM
 dfn	DROP FUNCTION
 dfw	DELETE FROM WHERE
