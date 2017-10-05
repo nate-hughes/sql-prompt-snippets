@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>spb</Title>
+      <Shortcut>spb</Shortcut>
+      <Description>sp_Blitz: Overall Health Check</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[USE rp_util;
+GO
+
+DECLARE @VersionDate DATETIME;
+$CURSOR$
+EXEC dbo.sp_Blitz @Help = 0 -- 1=explains stored procedure's input and output. Make sure to check the Messages tab in SSMS to read it.
+                 ,@CheckUserDatabaseObjects = 0 -- 1=review user databases for triggers, heaps, etc. Takes more time for more databases and objects.
+                 ,@CheckProcedureCache = 0 -- 1=top 20-50 resource-intensive cache plans and analyze them for common performance issues.
+                 ,@OutputType = 'TABLE' -- 'TABLE'=table | 'COUNT'=row with number found | 'MARKDOWN'=bulleted list | 'SCHEMA'=version and field list | 'NONE' = none
+                 ,@OutputProcedureCache = 0 -- 1=output the top 20-50 resource-intensive plans even if they did not trigger an alarm.
+                 ,@CheckProcedureCacheFilter = NULL -- 'CPU' | 'Reads' | 'Duration' | 'ExecCount'
+                 ,@CheckServerInfo = 0 -- 1=additional rows at priority 250 with server configuration details like CPUs, memory, virtualization and service accounts.
+				 /*
+				 -- Ex.:
+					--ServerName = ‘MyServer, DatabaseName = NULL, CheckId = NULL – will not check anything on servername MyServer
+					--ServerName = NULL, DatabaseName = ‘MyDB’, CheckId = NULL – will not check MyDB on any server
+					--ServerName = ‘MyServer’, DatabaseName = ‘MyDB’, CheckId = NULL – will not check MyDB on MyServer
+					--ServerName = NULL, DatabaseName = NULL, CheckId = 5 – will skip CheckId 5 on all databases
+					--ServerName = NULL, DatabaseName = ‘MyDB’, CheckId = 5 – will skip CheckId 5 on MyDB
+                 ,@SkipChecksServer = NULL
+                 ,@SkipChecksDatabase = NULL
+                 ,@SkipChecksSchema = NULL
+                 ,@SkipChecksTable = NULL
+				 */
+                 ,@IgnorePrioritiesBelow = NULL -- 50=ignore priorities below 50
+                 ,@IgnorePrioritiesAbove = NULL -- 50=ignore priorities above 50
+				 /*
+				 -- Write sp_Blitz Output to a Table
+                 ,@OutputServerName = NULL
+                 ,@OutputDatabaseName = NULL
+                 ,@OutputSchemaName = NULL
+                 ,@OutputTableName = NULL
+				 */
+                 ,@OutputXMLasNVARCHAR = 0
+                 ,@EmailRecipients = NULL
+                 ,@EmailProfile = NULL
+                 ,@SummaryMode = 0 -- 1=only return one row, with counts, per distinct FindingsGroup and Finding and Priority combo.
+                 ,@BringThePain = 0 -- 1=required if you want to run @CheckUserDatabaseObjects = 1 with over 50 databases. It's gonna be slow.
+                 ,@Debug = 0
+                 ,@VersionDate = @VersionDate OUTPUT;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

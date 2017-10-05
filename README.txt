@@ -56,6 +56,7 @@ scntf	SELECT COUNT(*) nicely formatted
 sf	SELECT FROM
 sfv	SELECT FROM a value list
 sfw	SELECT FROM WHERE
+spb	sp_Blitz: Overall Health Check
 sph	EXECUTE sp_help
 spt	EXECUTE sp_helptext
 spw	EXECUTE sp_whoisactive
