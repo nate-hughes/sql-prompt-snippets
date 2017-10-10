@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sca</Title>
+      <Shortcut>sca</Shortcut>
+      <Description>SYSCOMMENTS lookup across all DBs</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @SearchStr NVARCHAR(MAX) = N'$CURSOR$'
+       ,@SQL       NVARCHAR(MAX);
+
+SET @SearchStr = N'%' + @SearchStr + N'%';
+
+IF EXISTS (SELECT 1 FROM tempdb.sys.objects WHERE name LIKE N'#Objects[_]%')
+	TRUNCATE TABLE #Objects;
+ELSE
+	CREATE TABLE #Objects (DBName sysname, ObjectName sysname, ObjectType CHAR(2));
+
+SET @SQL = N'USE [?];
+INSERT #Objects (DBName, ObjectName, ObjectType)
+SELECT  DB_NAME()
+       ,OBJECT_NAME(m.object_id) AS ObjectName
+       ,o.type                   AS ObjectType
+       --,m.definition
+FROM    sys.sql_modules        m
+        INNER JOIN sys.objects o
+            ON o.object_id = m.object_id
+WHERE   m.definition LIKE ''' + @SearchStr + '''
+ORDER BY o.type
+        ,ObjectName;';
+
+EXECUTE sys.sp_MSforeachdb @SQL;
+
+SELECT  DBName
+       ,ObjectName
+       ,ObjectType
+FROM    #Objects;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -51,6 +51,7 @@ prr	Post-release recompile
 roj	RIGHT OUTER JOIN
 rt	ROLLBACK TRAN
 sc	SYSCOMMENTS lookup
+sca	SYSCOMMENTS lookup across all DBs
 scnt	SELECT COUNT(*)
 scntf	SELECT COUNT(*) nicely formatted
 sf	SELECT FROM
