@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>od</Title>
+      <Shortcut>od</Shortcut>
+      <Description>Object Dependencies</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @objname sysname = '$SELECTIONSTART$schema.objectname$SELECTIONEND$';
+
+SELECT  e.referenced_server_name   AS objserver
+       ,e.referenced_database_name AS objdatabase
+       ,e.referenced_schema_name   AS objschema
+       ,e.referenced_entity_name   AS objname
+       ,e.referenced_minor_name    AS objcolumn
+       ,o.type_desc                AS objtype
+       ,e.is_selected              AS objselected -- 1 = The object or column is selected.
+       ,e.is_select_all            AS objselectstar -- 1 = The object is used in a SELECT * clause (object-level only).
+       ,e.is_updated               AS objupdated -- 1 = The object or column is modified.
+       ,e.is_all_columns_found     AS objcolumnfound -- 0 = Column dependencies for the object could not be found.
+FROM    sys.dm_sql_referenced_entities(@objname, 'OBJECT') e
+        LEFT OUTER JOIN sys.objects                        o
+            ON e.referenced_id = o.object_id;
+
+
+SELECT  e.referencing_schema_name AS objschema
+       ,e.referencing_entity_name AS objname
+       ,o.type_desc               AS objtype
+FROM    sys.dm_sql_referencing_entities(@objname, 'OBJECT') e
+        LEFT OUTER JOIN sys.objects                         o
+            ON e.referencing_id = o.object_id;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

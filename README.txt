@@ -47,6 +47,7 @@ lk	LIKE '% %'
 loj	LEFT OUTER JOIN
 ls	DBCC SQLPERF for LOGSPACE
 ob	ORDER BY
+od	Object Dependencies
 prr	Post-release recompile
 roj	RIGHT OUTER JOIN
 rt	ROLLBACK TRAN
