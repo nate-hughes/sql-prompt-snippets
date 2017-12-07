@@ -24,23 +24,23 @@ ELSE
 
 SET @SQL = N'USE [?];
 INSERT #Objects (DBName, ObjectName, ObjectType)
-SELECT  DB_NAME()
+SELECT  DISTINCT
+       DB_NAME()
        ,OBJECT_NAME(m.object_id) AS ObjectName
        ,o.type                   AS ObjectType
        --,m.definition
 FROM    sys.sql_modules        m
         INNER JOIN sys.objects o
             ON o.object_id = m.object_id
-WHERE   m.definition LIKE ''' + @SearchStr + '''
-ORDER BY o.type
-        ,ObjectName;';
+WHERE   m.definition LIKE ''' + @SearchStr + ''';';
 
 EXECUTE sys.sp_MSforeachdb @SQL;
 
 SELECT  DBName
        ,ObjectName
        ,ObjectType
-FROM    #Objects;]]></Code>
+FROM    #Objects
+ORDER BY 1,2;]]></Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>
