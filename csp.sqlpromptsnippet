@@ -44,6 +44,7 @@ HISTORY:
 	$DATE(MMddyyyy)$ - neh - sp created
 
 ************************************************************************************************/
+BEGIN
 SET NOCOUNT ON;
 
 DECLARE @l_this_proc VARCHAR(100) = OBJECT_NAME(@@PROCID)
@@ -59,6 +60,7 @@ BEGIN
 END;
 
 
+END;
 GO
 ]]></Code>
     </Snippet>
