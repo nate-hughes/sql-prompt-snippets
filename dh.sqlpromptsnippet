@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>dh</Title>
+      <Shortcut>dh</Shortcut>
+      <Description>Deploy History</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[USE rp_util;
+
+SELECT  *
+FROM    dbo.v_Deploy_Hist
+WHERE   FileName LIKE '%$CURSOR$%'
+--AND     Environment = 'PROD'
+--AND     Environment = 'BETA'
+--AND     DeployStatusDescription = 'Deployed'
+--ORDER BY DeployUpdateDate DESC;
+ORDER BY Version DESC;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

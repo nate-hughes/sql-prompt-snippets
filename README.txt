@@ -26,6 +26,7 @@ defrg	Ola Hallengren Index Maintenance
 df	DELETE FROM
 dfn	DROP FUNCTION
 dfw	DELETE FROM WHERE
+dh	Deploy History
 di	DROP INDEX
 dp	DROP PROCEDURE
 ds	DROP SYNONYM
@@ -33,8 +34,10 @@ dt	DROP TABLE
 dtr	DISABLE TRIGGER
 dtra	DISABLE all TRIGGERs on table
 dv	DROP VIEW
+dvw	Base DV workflow lookup
 etr	ENABLE TRIGGER
 etra	ENABLE all TRIGGERs on table
+ea	EXECUTE AS
 fkt	Foreign Keys for Table
 foj	FULL OUTER JOIN
 gb	GROUP BY 
@@ -49,6 +52,7 @@ ls	DBCC SQLPERF for LOGSPACE
 ob	ORDER BY
 od	Object Dependencies
 prr	Post-release recompile
+rel	Call SP to read SQL error log
 roj	RIGHT OUTER JOIN
 rt	ROLLBACK TRAN
 sc	SYSCOMMENTS lookup

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ea</Title>
+      <Shortcut>ea</Shortcut>
+      <Description>EXECUTE AS</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[-- LOGIN: impersonation is at the server level
+-- USER: impersonation is restricted to the current database
+EXEC AS LOGIN = '$CURSOR$';
+SELECT SUSER_NAME(), USER_NAME();  
+/*
+REVERT;
+SELECT SUSER_NAME(), USER_NAME(); 
+*/
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
