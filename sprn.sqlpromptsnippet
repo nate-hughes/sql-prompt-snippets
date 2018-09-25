@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>sprn</Title>
+      <Shortcut>sprn</Shortcut>
+      <Description>Search Problem Tracker Db</Description>
+      <Author />
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations />
+      <Code Language="sql"><![CDATA[DECLARE @Search_Desc VARCHAR(MAX) = '%$CURSOR$%';
+
+SELECT  r.PRN                             AS PRN
+       ,r.Pulldown0                       AS Product
+       ,r.Status                          AS Status
+       ,CONVERT(VARCHAR(MAX), r.BigText1) AS Description
+       ,CONVERT(VARCHAR(MAX), r.BigText3) AS FixCloseDetail
+       ,r.LastUpdatedDate                 AS LastUpdateDate
+FROM    NRTracker.rp_problemtracker.Records r
+WHERE   CONVERT(VARCHAR(MAX), r.BigText1) LIKE @Search_Desc
+ORDER BY r.PRN DESC;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
